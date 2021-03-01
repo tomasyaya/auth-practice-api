@@ -1,9 +1,16 @@
+require("dotenv").config();
 const mongoose = require("mongoose");
 
-mongoose
-  .connect("mongodb://localhost/project-api", {
-    useCreateIndex: true,
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then((res) => console.log("connected to mongoose"));
+const dbOptions = {
+  useCreateIndex: true,
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+};
+const dbUrl = process.env.MONGODB_URL;
+
+async function dbConnect() {
+  await mongoose.connect(dbUrl, dbOptions);
+  console.log("connect to mongoose");
+}
+
+module.exports = dbConnect;
